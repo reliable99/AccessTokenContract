@@ -67,17 +67,17 @@ describe("Access Controlled Token Test", function () {
         const testMint = await accessControl.mint(addr1, 100);
         await testMint.wait();
 
-        // await accessControl.connect(owner).balanceOf(addr1);
+        await accessControl.connect(owner).balanceOf(addr1);
     });
 
-    it("Should transfer as non-admin", async function () {
+    it("Should transfer if not admin", async function () {
 
         const { accessControl, owner } = await loadFixture(
             contractFixture
         );
 
         const addr = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0 "
-        // await accessControl.connect(owner).transfer(addr, 100);
+        await accessControl.connect(owner).transfer(addr, 100);
         const balance = await accessControl.balanceOf(addr);
         expect(balance).to.equal(100);
     });
